@@ -146,7 +146,7 @@ const WhyChooseSection: FC = () =>
                     animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     className="text-center mb-12 max-w-3xl mx-auto"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                    <h2 className="text-2xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
                         Why Choose
                         <span className="bg-clip-text text-transparent ml-2 bg-gradient-to-r from-blue-600 to-indigo-600">
                             Easmark
