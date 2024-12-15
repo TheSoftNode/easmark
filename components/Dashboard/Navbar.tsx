@@ -86,11 +86,11 @@ const Navbar = () =>
                                 <User
                                     size={20}
                                     className={`
-                    relative z-10
-                    transition-all duration-300 text-indigo-500  
+                    relative z-10 text-indigo-600 
+                    transition-all duration-300  
                     ${isScrolled
                                             ? 'text-gray-800 group-hover:text-indigo-600'
-                                            : 'text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.3)]'
+                                            : 'text-indigo-600  drop-shadow-[0_2px_3px_rgba(0,0,0,0.3)]'
                                         } 
                     group-hover:scale-110
                   `}

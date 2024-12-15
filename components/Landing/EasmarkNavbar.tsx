@@ -91,7 +91,7 @@ const EasmarkNavbar = () =>
                     relative z-10
                     transition-all duration-300
                     ${isScrolled
-                      ? 'text-gray-800 group-hover:text-indigo-600'
+                      ? 'text-indigo-600 group-hover:text-indigo-600'
                       : 'text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.3)]'
                     } 
                     group-hover:scale-110
