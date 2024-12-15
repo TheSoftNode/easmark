@@ -134,7 +134,7 @@ const Footer: FC = () =>
               ))}
               <img src="/f6s-logo.png" alt="F6S" className="w-6 h-6" />
             </div>
-            <p className="text-blue-100/70 text-sm flex gap-2 flex-wrap items-center justify-center">
+            <div className="text-blue-100/70 text-sm flex gap-2 flex-wrap items-center justify-center">
               <span>© {new Date().getFullYear()}</span>
               <div className="relative flex items-center">
                 <div className="flex items-center gap-2">
@@ -160,7 +160,7 @@ const Footer: FC = () =>
                 </span>
               </div>
               <span>An AI-enabled product powered by HitoAI Limited. All rights reserved.</span>
-            </p>
+            </div>
           </div>
         </motion.div>
       </div>

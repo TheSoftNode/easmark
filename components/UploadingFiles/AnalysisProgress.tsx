@@ -90,7 +90,7 @@ export const AnalysisProgress = ({
                 transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
             />
             <h2 className="text-2xl font-semibold mb-3 bg-gradient-to-r from-violet-600 to-blue-600 bg-clip-text text-transparent">
-                Analyzing Your {uploadType === 'thesis' ? 'Thesis' : 'Code'}
+                Analyzing Your {uploadType === 'thesis' ? 'Submission' : 'Code'}
             </h2>
             <p className="text-gray-600 mb-8 italic">
                 {displayPhase}

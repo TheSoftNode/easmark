@@ -16,7 +16,7 @@ export const ThesisUploadCard = ({ onFileSelect, onError }: ThesisUploadCardProp
 
     const validateFile = (file: File) =>
     {
-        if (file.size > 20 * 1024 * 1024)
+        if (file.size > 100 * 1024 * 1024)
         {
             onError('File size exceeds 20MB limit');
             return false;
@@ -93,7 +93,7 @@ export const ThesisUploadCard = ({ onFileSelect, onError }: ThesisUploadCardProp
                     <p className="text-gray-600 mb-6 text-center max-w-md">
                         Drag and drop your thesis document here or click to browse
                         <br />
-                        <span className="text-sm">PDF or Word documents up to 20MB</span>
+                        <span className="text-sm">PDF or Word documents up to 100MB</span>
                     </p>
                     <Button
                         size="lg"

@@ -11,6 +11,7 @@ import { UploadComplete } from '@/components/UploadingFiles/UploadComplete';
 import { AnalysisProgress } from '@/components/UploadingFiles/AnalysisProgress';
 import { ErrorDisplay } from '@/components/UploadingFiles/ErrorDisplay';
 import { AnalysisResults } from '@/components/UploadingFiles/AnalysisResults';
+import AnalysisDashboard from '@/components/AnalysisDashboard/AnalysisDashboard';
 
 type UploadState = 'upload' | 'uploading' | 'uploadComplete' | 'analyzing' | 'complete' | 'error';
 type UploadType = 'thesis' | 'code';
@@ -45,6 +46,10 @@ const ThesisAnalysisFlow = () =>
             }
         }, interval);
     };
+
+    const onBack = () =>{
+        setCurrentState('upload');
+    }
 
     const handleFileUpload = (file: File) =>
     {
@@ -119,9 +124,14 @@ const ThesisAnalysisFlow = () =>
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                         >
-                            <AnalysisResults
+                            {/* <AnalysisResults
                                 data={analysisResult}
                                 uploadType={uploadType}
+                            /> */}
+                            <AnalysisDashboard 
+                                data={analysisData}
+                                uploadType={uploadType}
+                                onBack={onBack}
                             />
                         </motion.div>
                     ) : (
