@@ -7,7 +7,6 @@ import Link from 'next/link';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Navbar from '@/components/Dashboard/Navbar';
-import Image from 'next/image';
 
 export default function LoginPage() {
     const [isLoading, setIsLoading] = useState(false);

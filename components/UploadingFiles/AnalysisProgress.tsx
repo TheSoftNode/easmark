@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import { AlertCircle } from 'lucide-react';
 
-interface AnalysisProgressProps {
-    // analysisProgress: number;
+interface AnalysisProgressProps
+{
     uploadType: 'thesis' | 'code';
     onAnalysisComplete: () => void;
 }
@@ -30,37 +31,56 @@ const ANALYSIS_PHASES = {
     ]
 } as const;
 
-export const AnalysisProgress = ({ 
+export const AnalysisProgress = ({
     uploadType,
-    onAnalysisComplete 
-}: AnalysisProgressProps) => {
+    onAnalysisComplete
+}: AnalysisProgressProps) =>
+{
     const [progress, setProgress] = useState(0);
+    const [analysisComplete, setAnalysisComplete] = useState(false);
     const phases = ANALYSIS_PHASES[uploadType];
     const currentPhaseIndex = Math.floor((progress / 100) * phases.length);
     const displayPhase = phases[Math.min(currentPhaseIndex, phases.length - 1)];
 
-    useEffect(() => {
-        let timer: NodeJS.Timeout;
-        
-        // Start progress after 2 seconds
-        const startDelay = setTimeout(() => {
-            timer = setInterval(() => {
-                setProgress(prev => {
-                    if (prev >= 100) {
-                        clearInterval(timer);
-                        onAnalysisComplete();
-                        return 100;
-                    }
-                    return prev + 1;
-                });
-            }, 150); // Adjust speed of progress
-        }, 2000); // Initial delay before starting
+    const checkAnalysisResult = useCallback(() =>
+    {
+        const analysisData = localStorage.getItem('analysisData');
+        if (analysisData && !analysisComplete)
+        {
+            setAnalysisComplete(true);
+            // Continue progress for 30 more seconds after API response
+            setTimeout(() =>
+            {
+                onAnalysisComplete();
+            }, 30000);
+        }
+    }, [onAnalysisComplete, analysisComplete]);
 
-        return () => {
-            clearTimeout(startDelay);
-            clearInterval(timer);
+    useEffect(() =>
+    {
+        let progressTimer: NodeJS.Timeout;
+        let checkTimer: NodeJS.Timeout;
+
+        // Start progress immediately
+        progressTimer = setInterval(() =>
+        {
+            setProgress(prev =>
+            {
+                // Slow down progress as it gets higher
+                const increment = prev < 70 ? 1 : 0.2;
+                return Math.min(prev + increment, 95);
+            });
+        }, 200);
+
+        // Check for analysis result every second
+        checkTimer = setInterval(checkAnalysisResult, 1000);
+
+        return () =>
+        {
+            clearInterval(progressTimer);
+            clearInterval(checkTimer);
         };
-    }, [onAnalysisComplete]);
+    }, [checkAnalysisResult]);
 
     return (
         <div className="text-center">
@@ -79,13 +99,16 @@ export const AnalysisProgress = ({
                 <CardContent className="py-4">
                     <Progress value={progress} className="h-2" />
                     <p className="text-sm text-gray-500 mt-2">
-                        {progress}% complete
+                        {Math.round(progress)}% complete
                     </p>
                 </CardContent>
             </Card>
-            <p className="text-sm text-gray-500">
-                Please don't close this window during analysis
-            </p>
+            <div className="inline-flex items-center px-4 py-2 rounded-lg bg-gradient-to-r from-violet-50 to-blue-50 border border-violet-200 shadow-sm">
+                <AlertCircle className="w-4 h-4 mr-2 text-violet-600" />
+                <p className="text-sm font-medium bg-gradient-to-r from-violet-600 to-blue-600 bg-clip-text text-transparent">
+                    Please keep this window open during analysis
+                </p>
+            </div>
         </div>
     );
 };

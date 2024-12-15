@@ -33,8 +33,8 @@ export const UploadComplete = ({
         const parseKeyValuePairs = (input: string) =>
         {
             return input
-                .slice(1, -1) // Remove surrounding brackets
-                .split("][")  // Split into key-value pairs
+                .slice(1, -1) 
+                .split("][")  
                 .reduce((acc: Record<string, string>, item: string) =>
                 {
                     const [key, value] = item.split(" ,");
@@ -61,7 +61,6 @@ export const UploadComplete = ({
         return data;
     };
 
-
     const handleSubmitForAnalysis = async () =>
     {
         try
@@ -74,6 +73,13 @@ export const UploadComplete = ({
 
             setIsSubmitting(true);
 
+            // Simulate initial submission for 3 seconds
+            await new Promise(resolve => setTimeout(resolve, 3000));
+
+            // Start analysis progress before making the API call
+            onStartAnalysis(null);
+
+            // Make the API call in the background
             const formData = new FormData();
             formData.append('file', file);
 
@@ -83,22 +89,14 @@ export const UploadComplete = ({
                 }
             });
 
-            console.log(response.data);
-            // Transform the response data
             const transformedData = transformResponseData(response.data, uploadType);
-            console.log(transformedData);
 
             // Store the analysis data in localStorage
             localStorage.setItem('analysisData', JSON.stringify(transformedData));
 
-            // Pass the transformed data to the parent component
-            onStartAnalysis(transformedData);
         } catch (error)
         {
             console.error('Error submitting file for analysis:', error);
-            setIsSubmitting(false);
-        } finally
-        {
             setIsSubmitting(false);
         }
     };
