@@ -139,7 +139,7 @@ const HowItWorksSection: FC = () =>
                 </motion.div>
 
                 {/* Steps Container - Vertical on mobile, Horizontal on desktop */}
-                <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-6">
+                <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-6">
                     {steps.map((step, index) => (
                         <Step
                             key={index}

@@ -1,8 +1,7 @@
 "use client"
 
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import ThesisDashboard from '@/components/Dashboard/ThesisDashboard';
 import Navbar from '@/components/Dashboard/Navbar';
 import { UploadTypeSelector } from '@/components/UploadingFiles/UploadTypeSelector';
 import CodeUploadSection from '@/components/UploadingFiles/CodeUploadSection';
@@ -11,97 +10,100 @@ import { UploadProgress } from '@/components/UploadingFiles/UploadProgress';
 import { UploadComplete } from '@/components/UploadingFiles/UploadComplete';
 import { AnalysisProgress } from '@/components/UploadingFiles/AnalysisProgress';
 import { ErrorDisplay } from '@/components/UploadingFiles/ErrorDisplay';
+import { AnalysisResults } from '@/components/UploadingFiles/AnalysisResults';
 
+type UploadState = 'upload' | 'uploading' | 'uploadComplete' | 'analyzing' | 'complete' | 'error';
+type UploadType = 'thesis' | 'code';
 
 const ThesisAnalysisFlow = () =>
 {
-    const [currentState, setCurrentState] = useState('upload');
-    const [uploadType, setUploadType] = useState<'thesis' | 'code'>('thesis');
+    const [currentState, setCurrentState] = useState<UploadState>('upload');
+    const [uploadType, setUploadType] = useState<UploadType>('thesis');
     const [uploadProgress, setUploadProgress] = useState(0);
-    const [analysisProgress, setAnalysisProgress] = useState(0);
-    const [currentPhase, setCurrentPhase] = useState('');
+    // const [analysisProgress, setAnalysisProgress] = useState(0);
     const [error, setError] = useState('');
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [analysisResult, setAnalysisResult] = useState(null);
+    const [analysisData, setAnalysisData] = useState<any>(null);
 
-    const getAnalysisPhases = () =>
-    {
-        if (uploadType === 'thesis')
-        {
-            return [
-                'Analyzing document structure...',
-                'Reviewing literature citations...',
-                'Checking methodology...',
-                'Evaluating research findings...',
-                'Assessing writing quality...',
-                'Generating comprehensive report...'
-            ];
-        }
-        return [
-            'Analyzing code structure...',
-            'Checking syntax and formatting...',
-            'Evaluating code complexity...',
-            'Reviewing coding patterns...',
-            'Assessing code quality...',
-            'Generating code analysis report...'
-        ];
-    };
 
-    const simulateUpload = () =>
+    const simulateProgress = (
+        setProgress: (progress: number) => void,
+        onComplete: () => void,
+        interval = 50
+    ) =>
     {
         let progress = 0;
-        const interval = setInterval(() =>
+        const timer = setInterval(() =>
         {
             progress += 2;
-            setUploadProgress(progress);
+            setProgress(progress);
             if (progress >= 100)
             {
-                clearInterval(interval);
-                setCurrentState('uploadComplete');
+                clearInterval(timer);
+                onComplete();
             }
-        }, 50);
-    };
-
-    const simulateAnalysis = () =>
-    {
-        setCurrentState('analyzing');
-        const phases = getAnalysisPhases();
-        let progress = 0;
-        let phaseIndex = 0;
-
-        const interval = setInterval(() =>
-        {
-            progress += 1;
-            setAnalysisProgress(progress);
-
-            if (progress % 16 === 0)
-            {
-                phaseIndex = (phaseIndex + 1) % phases.length;
-                setCurrentPhase(phases[phaseIndex]);
-            }
-
-            if (progress >= 100)
-            {
-                clearInterval(interval);
-                setCurrentState('complete');
-            }
-        }, 100);
-    };
-
-    const handleCodeFileUpload = (data: { type: string; content: File | string; preview: string }) =>
-    {
-        if (data.content instanceof File)
-        {
-            setSelectedFile(data.content);
-            setCurrentState('uploading');
-            simulateUpload();
-        }
+        }, interval);
     };
 
     const handleFileUpload = (file: File) =>
     {
         setSelectedFile(file);
         setCurrentState('uploading');
-        simulateUpload();
+        simulateProgress(
+            setUploadProgress,
+            () => setCurrentState('uploadComplete')
+        );
+    };
+
+    const handleCodeFileUpload = (data: { type: string; content: File | string; preview: string }) =>
+    {
+        if (data.content instanceof File)
+        {
+            handleFileUpload(data.content);
+        }
+    };
+
+    // const handleStartAnalysis = () => {
+    //     setCurrentState('analyzing');
+    //     simulateProgress(
+    //         setAnalysisProgress,
+    //         () => setCurrentState('complete'),
+    //         100
+    //     );
+    // };
+
+    const handleStartAnalysis = (result: any) =>
+    {
+        setAnalysisResult(result);
+        setCurrentState('analyzing');
+    };
+
+    // Add a new handler for analysis completion
+    const handleAnalysisComplete = () =>
+    {
+        const storedData = localStorage.getItem('analysisData');
+        if (storedData)
+        {
+            setAnalysisData(JSON.parse(storedData));
+            setAnalysisResult(JSON.parse(storedData));
+            setCurrentState('complete');
+        }
+    };
+
+    const handleError = (errorMessage: string) =>
+    {
+        setError(errorMessage);
+        setCurrentState('error');
+    };
+
+    const resetUpload = () =>
+    {
+        setCurrentState('upload');
+        setUploadProgress(0);
+        // setAnalysisProgress(0);
+        setSelectedFile(null);
+        setError('');
     };
 
     return (
@@ -111,13 +113,16 @@ const ThesisAnalysisFlow = () =>
                 <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
 
                 <AnimatePresence mode="wait">
-                    {currentState === 'complete' ? (
+                    {currentState === 'complete' && analysisResult ? (
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                         >
-                            <ThesisDashboard />
+                            <AnalysisResults
+                                data={analysisResult}
+                                uploadType={uploadType}
+                            />
                         </motion.div>
                     ) : (
                         <motion.div
@@ -135,20 +140,12 @@ const ThesisAnalysisFlow = () =>
                                     {uploadType === 'thesis' ? (
                                         <ThesisUploadCard
                                             onFileSelect={handleFileUpload}
-                                            onError={(errorMessage) =>
-                                            {
-                                                setError(errorMessage);
-                                                setCurrentState('error');
-                                            }}
+                                            onError={handleError}
                                         />
                                     ) : (
                                         <CodeUploadSection
                                             onSubmit={handleCodeFileUpload}
-                                            onError={(errorMessage) =>
-                                            {
-                                                setError(errorMessage);
-                                                setCurrentState('error');
-                                            }}
+                                            onError={handleError}
                                         />
                                     )}
                                 </>
@@ -162,28 +159,28 @@ const ThesisAnalysisFlow = () =>
                                 />
                             )}
 
-                            {currentState === 'uploadComplete' && (
+                            {currentState === 'uploadComplete' && selectedFile && (
                                 <UploadComplete
-                                    fileName={selectedFile?.name || ''}
-                                    file={selectedFile!}
-                                    onUploadAgain={() => setCurrentState('upload')}
-                                    onStartAnalysis={simulateAnalysis}
+                                    fileName={selectedFile.name}
+                                    file={selectedFile}
+                                    onUploadAgain={resetUpload}
+                                    onStartAnalysis={handleStartAnalysis}
                                     uploadType={uploadType}
                                 />
                             )}
 
                             {currentState === 'analyzing' && (
                                 <AnalysisProgress
-                                    analysisProgress={analysisProgress}
-                                    currentPhase={currentPhase}
+                                    // analysisProgress={analysisProgress}
                                     uploadType={uploadType}
+                                    onAnalysisComplete={handleAnalysisComplete}
                                 />
                             )}
 
                             {currentState === 'error' && (
                                 <ErrorDisplay
                                     error={error}
-                                    onTryAgain={() => setCurrentState('upload')}
+                                    onTryAgain={resetUpload}
                                 />
                             )}
                         </motion.div>

@@ -9,6 +9,8 @@ import CTASection from './CTASection';
 import BenefitsSection from './BenefitsSection';
 import WhyChooseSection from './WhyChooseSection';
 import HowItWorksSection from './HowItWorksSection';
+import SubscriptionSection from './SubscriptionSection';
+import SponsorsSection from './SponsorsSection';
 
 
 const GradingLanding = () =>
@@ -84,7 +86,9 @@ const GradingLanding = () =>
       {/* <BenefitsSection /> */}
       <WhyChooseSection />
       <HowItWorksSection />
+      <SponsorsSection />
       <CTASection />
+      <SubscriptionSection />
     </>
 
   );
