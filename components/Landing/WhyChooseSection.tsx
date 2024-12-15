@@ -149,8 +149,18 @@ const WhyChooseSection: FC = () =>
                     <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
                         Why Choose
                         <span className="bg-clip-text text-transparent ml-2 bg-gradient-to-r from-blue-600 to-indigo-600">
-                            Easmark?
+                            Easmark
+                            <span className="relative top-[-16px] left-[2px] text-[0.8rem] font-extrabold">
+                                <span className="bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 text-transparent bg-clip-text animate-gradient">
+                                    TM {''}
+                                </span>
+                                {/* Animated dot after TM */}
+                                <span className="absolute -bottom-0.5 right-0 w-1 h-1 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 animate-pulse"></span>
+                            </span>
+                            ?
                         </span>
+
+
                     </h2>
                     <p className="text-lg text-gray-600">
                         Experience the future of grading with our cutting-edge features designed for modern educators

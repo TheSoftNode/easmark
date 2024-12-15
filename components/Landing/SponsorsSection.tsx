@@ -31,7 +31,7 @@ const SponsorsSection = () => {
   };
 
   return (
-    <div className="relative overflow-hidden bg-gradient-to-b from-white to-blue-50 py-20">
+    <div className="relative overflow-hidden bg-gradient-to-b from-white to-blue-50 py-16">
       {/* Background effects */}
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-violet-100/50 to-transparent" />
       
@@ -51,33 +51,6 @@ const SponsorsSection = () => {
           </h2>
         </motion.div>
 
-        {/* <motion.div 
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center max-w-4xl mx-auto"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          {sponsors.map((sponsor) => (
-            <motion.div
-              key={sponsor.name}
-              variants={itemVariants}
-              className="group relative"
-            >
-              <div className="relative p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 backdrop-blur-sm">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-violet-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="relative w-32 h-12 mx-auto">
-                  <Image
-                    src={sponsor.logo}
-                    alt={`${sponsor.name} logo`}
-                    fill
-                    className="object-contain filter grayscale hover:grayscale-0 transition-all duration-300 group-hover:scale-105"
-                  />
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div> */}
         <motion.div
                 className="hard-skills flex flex-wrap items-center justify-center"
                 variants={containerVariants}
@@ -101,7 +74,7 @@ const SponsorsSection = () => {
                             <img
                                 src={slide.logo}
                                 alt={slide.name}
-                                className="min-w-12 h-20 object-fit"
+                                className="md:min-w-10 md:h-16 min-w-6 h-10 object-fit"
                             />
                         </motion.div>
                     </motion.div>
