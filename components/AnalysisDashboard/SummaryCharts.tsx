@@ -55,7 +55,7 @@ const SummaryCharts: React.FC<{ data: ChartDataItem[] }> = ({ data }) => {
                                     data={data}
                                     innerRadius={60}
                                     outerRadius={80}
-                                    dataKey="weightedScore"
+                                    dataKey="calculatedScore"
                                     onMouseEnter={onPieEnter}
                                 >
                                     {data.map((_, index) => (

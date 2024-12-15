@@ -16,6 +16,7 @@ import AnalysisDashboard from '@/components/AnalysisDashboard/AnalysisDashboard'
 type UploadState = 'upload' | 'uploading' | 'uploadComplete' | 'analyzing' | 'complete' | 'error';
 type UploadType = 'thesis' | 'code';
 
+
 const ThesisAnalysisFlow = () =>
 {
     const [currentState, setCurrentState] = useState<UploadState>('upload');
@@ -26,7 +27,6 @@ const ThesisAnalysisFlow = () =>
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [analysisResult, setAnalysisResult] = useState(null);
     const [analysisData, setAnalysisData] = useState<any>(null);
-
 
     const simulateProgress = (
         setProgress: (progress: number) => void,

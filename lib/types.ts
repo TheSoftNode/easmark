@@ -23,15 +23,16 @@ export interface ScoreItemProps {
   label: string;
   score: number;
   reason: string;
-  weight: number;
-  onWeightChange: (key: string, value: number) => void;
+  // weight: number;
+  // onWeightChange: (key: string, value: number) => void;
   calculatedScore: number;
 }
 
 export interface ChartDataItem {
   name: string;
   score: number;
-  weightedScore: number;
+  calculatedScore: number;
+  // weightedScore: number;
 }
 
 export interface ActionButtonsProps {

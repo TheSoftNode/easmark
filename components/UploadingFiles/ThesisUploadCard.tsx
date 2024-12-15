@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -13,6 +13,12 @@ interface ThesisUploadCardProps
 export const ThesisUploadCard = ({ onFileSelect, onError }: ThesisUploadCardProps) =>
 {
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() =>
+    {
+        window.scrollTo(0, 0);
+    }, []);
+
 
     const validateFile = (file: File) =>
     {
