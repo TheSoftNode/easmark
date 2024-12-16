@@ -176,7 +176,7 @@ export const AnalysisDashboard: React.FC<AnalysisDashboardProps> = ({
                         />
                     ))}
                 </div> */}
-                <div className="flex gap-8 items-start md:flex-row flex-col">
+                <div className="flex gap-8 items-start lg:flex-row flex-col">
                     <div className="space-y-6">
                         {chartData.map((item) => (
                             <ScoreItem

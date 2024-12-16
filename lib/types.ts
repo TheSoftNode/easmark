@@ -53,8 +53,22 @@ export interface AnalysisDashboardProps {
   onBack: () => void;
 }
 
+// export const COLORS = [
+//   '#7c3aed', '#2563eb', '#a78bfa', '#60a5fa', '#818cf8',
+//   '#4f46e5', '#6366f1', '#8b5cf6', '#3b82f6', '#6d28d9'
+// ];
+
 export const COLORS = [
-  '#7c3aed', '#2563eb', '#a78bfa', '#60a5fa', '#818cf8',
-  '#4f46e5', '#6366f1', '#8b5cf6', '#3b82f6', '#6d28d9'
+  '#7c3aed', // violet-600
+  '#2563eb', // blue-600
+  '#9333ea', // purple-600
+  '#3b82f6', // blue-500
+  '#6366f1', // indigo-500
+  '#8b5cf6', // violet-500
+  '#4f46e5', // indigo-600
+  '#6d28d9', // violet-700
+  '#1d4ed8', // blue-700
+  '#5b21b6'  // purple-700
 ];
+
 
