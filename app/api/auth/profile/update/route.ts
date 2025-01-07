@@ -13,7 +13,8 @@ export async function PUT(request: NextRequest) {
 
         const data = await request.json();
         
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/profile/update/`, {
+        const response = await fetch(`https://easmark-platform.onrender.com/users/profile/update/`, {
+        // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/profile/update/`, {
             method: 'PUT',
             headers: {
                 'Authorization': token,

@@ -4,7 +4,8 @@ export async function POST(request: NextRequest) {
     const token = request.headers.get('authorization');
     const body = await request.json();
     
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/coupons/action/revoke/`, {
+    // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/coupons/action/revoke/`, {
+    const response = await fetch(`https://easmark-platform.onrender.com/coupons/action/revoke/`, {
         method: 'POST',
         headers: {
             'Authorization': token || '',

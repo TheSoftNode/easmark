@@ -5,7 +5,8 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     
     const queryString = searchParams.toString();
-    const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/credits/history/${queryString ? `?${queryString}` : ''}`;
+    const apiUrl = `https://easmark-platform.onrender.com/credits/history/${queryString ? `?${queryString}` : ''}`;
+    // const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/credits/history/${queryString ? `?${queryString}` : ''}`;
     
     const response = await fetch(apiUrl, {
         headers: {

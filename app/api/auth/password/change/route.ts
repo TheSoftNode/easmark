@@ -4,7 +4,8 @@ export async function POST(request: NextRequest) {
     const token = request.headers.get('authorization');
     const data = await request.json();
     
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/change-password/`, {
+    const response = await fetch(`https://easmark-platform.onrender.com/users/change-password/`, {
+    // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/change-password/`, {
       method: 'POST',
       headers: {
         'Authorization': token || '',

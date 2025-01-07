@@ -3,7 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest) {
     const token = request.headers.get('authorization');
     
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/credits/balance/`, {
+    const response = await fetch(`https://easmark-platform.onrender.com/credits/balance/`, {
+    // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/credits/balance/`, {
         headers: {
             'Authorization': token || '',
         },

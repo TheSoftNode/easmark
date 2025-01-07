@@ -5,7 +5,8 @@ export async function POST(request: NextRequest) {
         const token = request.headers.get('authorization');
         const body = await request.json();
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/analysis/types/create/`, {
+        const response = await fetch(`https://easmark-platform.onrender.com/analysis/types/create/`, {
+        // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/analysis/types/create/`, {
             method: 'POST',
             headers: {
                 'Authorization': token || '',

@@ -11,7 +11,8 @@ export async function PUT(
     const body = await request.json();
     
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/coupons/update/${params.code}/`,
+        `https://easmark-platform.onrender.com/coupons/update/${params.code}/`,
+        // `${process.env.NEXT_PUBLIC_API_URL}/coupons/update/${params.code}/`,
         {
             method: 'PUT',
             headers: {

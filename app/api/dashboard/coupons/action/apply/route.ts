@@ -7,7 +7,8 @@ export async function POST(request: NextRequest)
 
     try
     {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/coupons/action/apply/`, {
+        // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/coupons/action/apply/`, {
+        const response = await fetch(`https://easmark-platform.onrender.com/coupons/action/apply/`, {
             method: 'POST',
             headers: {
                 'Authorization': token || '',

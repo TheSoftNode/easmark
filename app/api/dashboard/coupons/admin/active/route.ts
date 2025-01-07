@@ -5,7 +5,8 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/coupons/admin/active/?${searchParams}`,
+        `https://easmark-platform.onrender.com/coupons/admin/active/?${searchParams}`,
+        // `${process.env.NEXT_PUBLIC_API_URL}/coupons/admin/active/?${searchParams}`,
         {
             headers: {
                 'Authorization': token || '',

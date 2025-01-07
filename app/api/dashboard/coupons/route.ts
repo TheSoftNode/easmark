@@ -4,7 +4,8 @@ export async function POST(request: NextRequest) {
     const token = request.headers.get('authorization');
     const body = await request.json();
     
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/coupons/create/`, {
+    const response = await fetch(`https://easmark-platform.onrender.com/coupons/create/`, {
+    // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/coupons/create/`, {
         method: 'POST',
         headers: {
             'Authorization': token || '',
@@ -20,7 +21,8 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
     const token = request.headers.get('authorization');
     
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/coupons/list/`, {
+    const response = await fetch(`https://easmark-platform.onrender.com/coupons/list/`, {
+    // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/coupons/list/`, {
         headers: {
             'Authorization': token || '',
         },

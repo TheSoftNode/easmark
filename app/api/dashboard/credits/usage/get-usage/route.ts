@@ -15,7 +15,8 @@ export async function GET(request: NextRequest) {
             );
         }
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/credits/get-usage/`, {
+        const response = await fetch(`https://easmark-platform.onrender.com/credits/get-usage/`, {
+        // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/credits/get-usage/`, {
             method: 'GET',
             headers: {
                 'Authorization': token,

@@ -3,7 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
   const data = await request.json();
   
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/reset-password/`, {
+  const response = await fetch(`https://easmark-platform.onrender.com/users/reset-password/`, {
+  // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/reset-password/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
