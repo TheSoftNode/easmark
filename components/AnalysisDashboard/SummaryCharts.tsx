@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import renderActiveShape from "./renderActiveShape";
-import { useWindowSize } from "@/app/hooks/useWindowSize";
+import { useWindowSize } from "@/hooks/useWindowSize";
 
 // const useWindowSize = () => {
 //     const [windowSize, setWindowSize] = useState({

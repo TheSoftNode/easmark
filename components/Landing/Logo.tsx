@@ -2,7 +2,7 @@ import React from 'react';
 
 const Logo = () => {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 cursor-pointer">
       <div className="flex items-center relative group">
         <span className="text-4xl font-bold tracking-tight">
           {/* First part with primary gradient */}

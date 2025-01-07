@@ -5,18 +5,25 @@ import { User, LogIn, UserPlus, LogOut } from 'lucide-react';
 import Logo from './Logo';
 import Link from 'next/link';
 import
-  {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu"
+{
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { useGetMeQuery, useLogoutMutation } from '@/src/redux/features/auth/authApi';
+import { UserAvatar } from './UserAvatar';
 
 const EasmarkNavbar = () =>
 {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const { data: userData, isLoading, error } = useGetMeQuery();
+  const [Logout, { isLoading: isLoggingOut }] = useLogoutMutation();
+
+  // console.log(userData);
 
   useEffect(() =>
   {
@@ -31,6 +38,29 @@ const EasmarkNavbar = () =>
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  useEffect(() =>
+  {
+    if (userData)
+    {
+      setIsAuthenticated(true);
+    }
+
+    return () =>
+    {
+      setIsAuthenticated(false);
+    }
+  }, [userData]);
+
+  // if (userData) { setIsAuthenticated(true) }
+  // else { setIsAuthenticated(false) }
+
+  const handleLogout = () =>
+  {
+    Logout();
+    setIsAuthenticated(false);
+  }
+
 
   return (
     <nav
@@ -85,18 +115,27 @@ const EasmarkNavbar = () =>
                   hover:after:opacity-20
                 `}
               >
-                <User
-                  size={20}
-                  className={`
-                    relative z-10
-                    transition-all duration-300
-                    ${isScrolled
-                      ? 'text-indigo-600 group-hover:text-indigo-600'
-                      : 'text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.3)]'
-                    } 
-                    group-hover:scale-110
-                  `}
-                />
+
+                {isAuthenticated ? (
+                  <UserAvatar
+                    name={userData?.user?.name}
+                    variant={isScrolled ? 'scrolled' : 'default'}
+                  />
+                ) : (
+                  <User
+                    size={20}
+                    className={`
+      relative z-10
+      transition-all duration-300
+      ${isScrolled
+                        ? 'text-indigo-600 group-hover:text-indigo-600'
+                        : 'text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.3)]'
+                      } 
+      group-hover:scale-110
+    `}
+                  />
+                )}
+
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
@@ -130,12 +169,12 @@ const EasmarkNavbar = () =>
                 </>
               ) : (
                 <>
-                  <Link href="/profile">
+                  <Link href="/Dashboard">
                     <DropdownMenuItem className="flex items-center gap-3 px-4 py-3 m-1 rounded-lg cursor-pointer
                       transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-600/10 hover:via-indigo-500/10 hover:to-purple-600/10
                       group relative overflow-hidden">
                       <User size={18} className="text-indigo-600 group-hover:scale-110 transition-transform duration-300" />
-                      <span className="font-medium text-gray-700 group-hover:text-indigo-600 transition-colors duration-300">Profile</span>
+                      <span className="font-medium text-gray-700 group-hover:text-indigo-600 transition-colors duration-300">Dashboard</span>
                     </DropdownMenuItem>
                   </Link>
                   <DropdownMenuSeparator className="my-2 bg-gradient-to-r from-blue-600/20 via-indigo-500/20 to-purple-600/20" />
@@ -143,7 +182,7 @@ const EasmarkNavbar = () =>
                     className="flex items-center gap-3 px-4 py-3 m-1 rounded-lg cursor-pointer
                       transition-all duration-300 hover:bg-gradient-to-r hover:from-red-600/10 hover:to-red-600/10
                       group relative overflow-hidden"
-                    onClick={() => setIsAuthenticated(false)}
+                    onClick={handleLogout}
                   >
                     <LogOut size={18} className="text-red-600 group-hover:scale-110 transition-transform duration-300" />
                     <span className="font-medium text-red-600 group-hover:text-red-700 transition-colors duration-300">Log Out</span>

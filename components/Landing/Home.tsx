@@ -11,6 +11,7 @@ import WhyChooseSection from './WhyChooseSection';
 import HowItWorksSection from './HowItWorksSection';
 import SubscriptionSection from './SubscriptionSection';
 import SponsorsSection from './SponsorsSection';
+import Footer from '../Footer/Footer';
 
 
 const GradingLanding = () =>
@@ -66,7 +67,7 @@ const GradingLanding = () =>
 
             {/* Buttons Group */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/DocumentUpload">
+              <Link href="/Dashboard">
                 <button className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-200 text-base font-medium shadow-lg hover:shadow-xl">
                   Get Started Free
                   <ArrowRight className="w-4 h-4" />
@@ -89,6 +90,7 @@ const GradingLanding = () =>
       <SponsorsSection />
       <CTASection />
       <SubscriptionSection />
+      <Footer />
     </>
 
   );

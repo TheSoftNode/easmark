@@ -71,4 +71,3 @@ export const COLORS = [
   '#5b21b6'  // purple-700
 ];
 
-
