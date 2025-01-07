@@ -1,8 +1,8 @@
-import Navbar from '@/components/Dashboard/Navbar';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { ReduxProvider } from '../../src/redux/provider';
 import { AuthGuard } from '@/components/AuthGuard';
+import { DashboardLoadingState } from '@/components/UserDashboard/LoadingState';
 
 export default function AuthLayout({
     children,
@@ -13,9 +13,10 @@ export default function AuthLayout({
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
             <ReduxProvider>
-                {/* <Navbar /> */}
                 <AuthGuard>
-                    {children}
+                    <Suspense fallback={<DashboardLoadingState />}>
+                        {children}
+                    </Suspense>
                 </AuthGuard>
                 <Toaster position="top-center" />
             </ReduxProvider>
