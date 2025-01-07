@@ -162,7 +162,7 @@ export const UploadComplete = ({
         }
     };
 
-    
+
     const calculateFinalCost = () =>
     {
         if (userAnalytics?.free_analysis_available) return 0;
@@ -183,7 +183,7 @@ export const UploadComplete = ({
                 switch (activeCoupon.coupon_details.coupon_type)
                 {
                     case 'percentage':
-                        if (couponDiscount === 100) return 0; 
+                        if (couponDiscount === 100) return 0;
                         return baseCost * (1 - couponDiscount / 100);
 
                     case 'fixed':
@@ -284,6 +284,9 @@ export const UploadComplete = ({
     const handleSubmitForAnalysis = async () =>
     {
         setShowConfirmDialog(false);
+        setIsSubmitting(true);
+        await new Promise(resolve => setTimeout(resolve, 3000));
+        onStartAnalysis(null);
 
         if (!currentAnalysisType)
         {
@@ -299,9 +302,7 @@ export const UploadComplete = ({
                 return;
             }
 
-            setIsSubmitting(true);
-            await new Promise(resolve => setTimeout(resolve, 3000));
-            onStartAnalysis(null);
+
 
             const formData = new FormData();
             formData.append('file', file);
@@ -320,7 +321,7 @@ export const UploadComplete = ({
             const transformedData = transformResponseData(response.data, uploadType);
             localStorage.setItem('analysisData', JSON.stringify(transformedData));
 
-            
+
             // 2. Sequential processing with retries
             // let appliedCoupon = null;
             // if (!userAnalytics?.free_analysis_available && couponCode && couponDiscount > 0)
